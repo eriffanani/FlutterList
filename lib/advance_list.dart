@@ -9,6 +9,34 @@ class AdvanceList extends StatefulWidget {
 }
 
 class _AdvanceListState extends State<AdvanceList> {
+  
+  List<Widget> widgets = [];
+
+  void showSnackBar(String text) {
+    var snackBar = SnackBar(content: Text(text));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  _AdvanceListState() {
+    for (int i = 0; i < 15; i++) {
+      widgets.add(Container(
+        width: double.infinity,
+        child: Card(
+          child: InkWell(
+              onTap: () {
+                showSnackBar("OK");
+              },
+              child: Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text(
+                    "Data ke: " + i.toString(),
+                    style: TextStyle(fontSize: 22),
+                  ))),
+        ),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,6 +50,15 @@ class _AdvanceListState extends State<AdvanceList> {
               SystemNavigator.pop();
             }
           }),
+        ),
+        body: ListView(
+          children: <Widget>[
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: widgets)
+          ],
         ),
       ),
     );
